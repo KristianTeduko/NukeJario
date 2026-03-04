@@ -5,8 +5,9 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D PlayerRigidbod2D;
     public float force = 0f;
-
+    public float jumpForce = 0f;
     Vector2 movement;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,8 +19,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
+        movement = new Vector2(horizontal, 0).normalized;
 
-         movement = new Vector2(horizontal, 0).normalized;
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("JUMP");
+            PlayerRigidbod2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+
+
+        }
     }
 
 
@@ -27,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayerRigidbod2D.AddForce( * force);
+        transform.Translate(movement * force * Time.deltaTime);
 
 
     }
