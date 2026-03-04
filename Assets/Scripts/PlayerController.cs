@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource playerAS;
 
+    public bool hittable;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,6 +53,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        hittable = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        hittable = false;
+    }
 
 
 
@@ -62,7 +73,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.tag == "Ground")
         {
