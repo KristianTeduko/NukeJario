@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
             coinAmout++;
             
             Component[] components = collision.GetComponents(typeof(Component));
+            collision.GetComponent<Coin>().MakeSound();    //☺
             foreach (Component component in components)
             {
 
@@ -78,7 +79,6 @@ public class PlayerController : MonoBehaviour
                     Destroy(component);
                 }
             }
-            collision.GetComponent<Coin>().MakeSound();
             Destroy(collision.gameObject);
             Debug.Log("Coins: " + coinAmout);
         }
