@@ -1,0 +1,27 @@
+using UnityEngine;
+
+public class Coin : MonoBehaviour
+{
+    public AudioClip coinClip;
+    AudioSource coinAS;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        coinAS = GetComponent<AudioSource>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void MakeSound()
+    {
+
+        coinAS.PlayOneShot(coinClip);
+    }
+
+
+}

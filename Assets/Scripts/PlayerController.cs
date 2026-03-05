@@ -5,10 +5,11 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D PlayerRigidbod2D;
     public float force = 0f;
-
     public float jumpForce = 0f;
     Vector2 movement;
     bool grounded;
+
+    int coinAmout = 0;
 
     public AudioClip hyppy;
     public AudioClip hitSound;
@@ -61,6 +62,25 @@ public class PlayerController : MonoBehaviour
         {
             hittable = true;
             currentEnemy = collision.GetComponent<EnemyScript>();
+        }
+
+        if (collision.transform.tag == "Coin")
+        {
+
+            coinAmout++;
+            
+            Component[] components = collision.GetComponents(typeof(Component));
+            foreach (Component component in components)
+            {
+
+                if (component != GetComponent<AudioSource>() || component != GetComponent<Transform>())
+                {
+                    Destroy(component);
+                }
+            }
+            collision.GetComponent<Coin>().MakeSound();
+            Destroy(collision.gameObject);
+            Debug.Log("Coins: " + coinAmout);
         }
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - hittable
+  - Coin
   layers:
   - Default
   - TransparentFX
