@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +17,10 @@ public class PlayerController : MonoBehaviour
     public AudioSource playerAS;
 
     public bool hittable;
+
+
+    EnemyScript currentEnemy;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("HIT");
             playerAS.PlayOneShot(hitSound);
-
+            currentEnemy.TakeDamage(1);
 
 
         }
@@ -55,15 +57,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hittable = true;
+        if (collision.GetComponent<EnemyScript>() != null)
+        {
+            hittable = true;
+            currentEnemy = collision.GetComponent<EnemyScript>();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        hittable = false;
+        if (collision.GetComponent<EnemyScript>() != null)
+        {
+            hittable = false;
+            currentEnemy = null;
+        }
     }
-
-
 
     private void FixedUpdate()
     {
@@ -85,23 +93,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Ground")
+        {
+            Debug.Log("NotGrounded");
+            grounded = false;
 
 
-
-
-
-
-
-
-
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.transform.tag == "Ground")
-    //    {
-    //        Debug.Log("NotGrounded");
-    //        grounded = false;
-
-
-    //    }
-    //}
+        }
+    }
 }
