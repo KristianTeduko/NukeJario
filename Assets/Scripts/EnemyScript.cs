@@ -35,7 +35,9 @@ public class EnemyScript : MonoBehaviour
         {
             //kuolema
             enemyAS.PlayOneShot(enemyDeathSound);
-            Destroy(gameObject);
+            Destroy(GetComponent<SpriteRenderer>());
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(gameObject, 2);
 
 
 

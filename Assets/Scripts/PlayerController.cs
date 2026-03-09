@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,7 +8,6 @@ public class PlayerController : MonoBehaviour
     public float force = 0f;
     public float jumpForce = 0f;
     Vector2 movement;
-    bool grounded;
 
     int coinAmout = 0;
 
@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource playerAS;
 
-    public bool hittable;
+    bool grounded;
+    bool hittable = false;
+    bool finished = false;
 
 
     EnemyScript currentEnemy;
@@ -66,23 +68,12 @@ public class PlayerController : MonoBehaviour
 
         if (collision.transform.tag == "Coin")
         {
-
-            coinAmout++;
-            
-            Component[] components = collision.GetComponents(typeof(Component));
-            collision.GetComponent<Coin>().MakeSound();    //☺
-            foreach (Component component in components)
-            {
-
-                if (component != GetComponent<AudioSource>() || component != GetComponent<Transform>())
-                {
-                    Destroy(component);
-                }
-            }
-            Destroy(collision.gameObject);
-            Debug.Log("Coins: " + coinAmout);
+            GetCoin(collision.gameObject);
         }
     }
+
+
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -99,6 +90,8 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+
 
 
     void OnCollisionStay2D(Collision2D collision)
@@ -123,4 +116,20 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    void GetCoin(GameObject _coin)
+    {
+        coinAmout++;
+        _coin.GetComponent<Coin>().MakeSound();
+
+
+    }
+
+    void Finish()
+    {
+        finished = true;
+        Debug.Log("voitto");
+
+
+    }
+
 }

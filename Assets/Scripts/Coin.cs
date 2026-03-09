@@ -21,6 +21,11 @@ public class Coin : MonoBehaviour
     {
 
         coinAS.PlayOneShot(coinClip);
+        Destroy(GetComponent<SpriteRenderer>());
+        Destroy(GetComponent<BoxCollider2D>());
+        Destroy(gameObject, 2);
+
+
     }
 
 
