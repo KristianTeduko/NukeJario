@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     bool hittable = false;
     bool finished = false;
 
-
+    GameController gameController;
     EnemyScript currentEnemy;
 
 
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidbod2D = GetComponent<Rigidbody2D>();
         playerAS = GetComponent<AudioSource>();
+        gameController = FindFirstObjectByType<GameController>();
     }
 
     // Update is called once per frame
@@ -69,6 +70,11 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "Coin")
         {
             GetCoin(collision.gameObject);
+        }
+
+        if (collision.transform.tag == "Finish")
+        {
+            Finish();
         }
     }
 
@@ -127,8 +133,7 @@ public class PlayerController : MonoBehaviour
     void Finish()
     {
         finished = true;
-        Debug.Log("voitto");
-
+        gameController.winState();
 
     }
 
