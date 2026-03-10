@@ -59,6 +59,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Finish()
+    {
+        finished = true;
+        gameController.winState();
+
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<EnemyScript>() != null)
@@ -127,13 +135,6 @@ public class PlayerController : MonoBehaviour
         coinAmout++;
         _coin.GetComponent<Coin>().MakeSound();
 
-
-    }
-
-    void Finish()
-    {
-        finished = true;
-        gameController.winState();
 
     }
 
