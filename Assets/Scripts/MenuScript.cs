@@ -35,6 +35,15 @@ public class MenuScript : MonoBehaviour
 
     }
 
+    public void StartGame(string sceneName)
+    {
+
+
+        SceneManager.LoadScene(sceneName);
+
+
+    }
+
 
     public void QuitGame()
     {

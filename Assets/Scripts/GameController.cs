@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case gamestate.pause:
-                Pause.SetActive(false);
+                Pause.SetActive(true);
                 Time.timeScale = 0f;
                 break;
 

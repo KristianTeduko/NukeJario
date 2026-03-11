@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -24,6 +25,12 @@ public class PlayerController : MonoBehaviour
     GameController gameController;
     EnemyScript currentEnemy;
 
+    public TextMeshProUGUI coinUI;
+    public TextMeshProUGUI clockUI;
+
+    public TextMeshProUGUI finalTimeUI;
+
+    float time;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,13 +38,21 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbod2D = GetComponent<Rigidbody2D>();
         playerAS = GetComponent<AudioSource>();
         gameController = FindFirstObjectByType<GameController>();
+
+        coinUI.text = coinAmout.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
+        clockUI.text = FormatTime(time).ToString();
+
+        finalTimeUI.text = FormatTime(time).ToString();
+
         float horizontal = Input.GetAxis("Horizontal");
         movement = new Vector2(horizontal, 0).normalized;
+
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
@@ -58,6 +73,19 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    private string FormatTime(float time)
+    {
+        int mins = Mathf.FloorToInt(time / 60f);
+        int secs = Mathf.FloorToInt(time % 60f);
+        int ms = Mathf.FloorToInt((time * 1000f) % 1000f);
+        return $"{mins:00}:{secs:00}.{ms:00}";
+
+
+
+    }
+
+
 
     void Finish()
     {
@@ -133,6 +161,7 @@ public class PlayerController : MonoBehaviour
     void GetCoin(GameObject _coin)
     {
         coinAmout++;
+        coinUI.text = coinAmout.ToString();
         _coin.GetComponent<Coin>().MakeSound();
 
 
