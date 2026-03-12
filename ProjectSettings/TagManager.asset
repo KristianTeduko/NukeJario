@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - hittable
   - Coin
+  - KillZ
+  - PowerUp1
   layers:
   - Default
   - TransparentFX

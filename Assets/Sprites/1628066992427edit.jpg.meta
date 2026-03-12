@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 967e4a23ac974124f9c7f07f3a4b814a
+guid: cfb7878f2620a2448b15a61cd6f575da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4272106997715506994
-    second: sonic_asalga_0
+      213: -7544288216509784701
+    second: 1628066992427edit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sonic_asalga_0
+      name: 1628066992427edit_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 126
-        height: 190
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2371b490ea2994b30800000000000000
-      internalID: 4272106997715506994
+      spriteID: 38dd4c3a6dd4d4790800000000000000
+      internalID: -7544288216509784701
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sonic_asalga_0: 4272106997715506994
+      1628066992427edit_0: -7544288216509784701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

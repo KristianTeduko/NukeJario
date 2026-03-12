@@ -5,12 +5,15 @@ public class GameController : MonoBehaviour
 
     public GameObject Win;
     public GameObject Pause;
+    public GameObject Lose;
+
 
     enum gamestate
     {
         playing,
         win,
-        pause
+        pause,
+        loser
     }
 
     gamestate currentstate = gamestate.playing;
@@ -36,6 +39,14 @@ public class GameController : MonoBehaviour
         StateControl(gamestate.playing);
     }
 
+    public void gameOver()
+    {
+        StateControl(gamestate.loser);
+
+
+    }
+
+
     public void winState()
     {
         StateControl(gamestate.win);
@@ -46,7 +57,7 @@ public class GameController : MonoBehaviour
         StateControl(gamestate.pause);
     }
 
-    void StateControl( gamestate _gamestate)
+    void StateControl(gamestate _gamestate)
     {
 
 
@@ -68,6 +79,12 @@ public class GameController : MonoBehaviour
 
             case gamestate.pause:
                 Pause.SetActive(true);
+                Time.timeScale = 0f;
+                break;
+
+
+            case gamestate.loser:
+                Lose.SetActive(true);
                 Time.timeScale = 0f;
                 break;
 

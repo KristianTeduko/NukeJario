@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource playerAS;
 
     bool grounded;
+    bool powerUpped = false;
     bool hittable = false;
     bool finished = false;
 
@@ -30,7 +31,12 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI finalTimeUI;
 
+    public int coinMaxAmount;
+
+    public int powerUpSpeedPlus;
+
     float time;
+    float timerPowerUp = 60;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,19 +44,27 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbod2D = GetComponent<Rigidbody2D>();
         playerAS = GetComponent<AudioSource>();
         gameController = FindFirstObjectByType<GameController>();
+        coinMaxAmount = GameObject.FindGameObjectsWithTag("Coin").Length;
 
-        coinUI.text = coinAmout.ToString();
+        coinUI.text = coinAmout.ToString() + " / " + coinMaxAmount;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(timerPowerUp);
+        if (powerUpped == true)
+        {
+
+            FormatTime(timerPowerUp) -= Time.deltaTime;
+
+        }
         time += Time.deltaTime;
         clockUI.text = FormatTime(time).ToString();
 
         finalTimeUI.text = FormatTime(time).ToString();
 
-        float horizontal = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
         movement = new Vector2(horizontal, 0).normalized;
 
 
@@ -108,9 +122,23 @@ public class PlayerController : MonoBehaviour
             GetCoin(collision.gameObject);
         }
 
+        if (collision.transform.tag == "PowerUp1")
+        {
+            GetPowerUp(collision.gameObject);
+        }
+
         if (collision.transform.tag == "Finish")
         {
             Finish();
+        }
+
+        if (collision.transform.tag == "KillZ")
+        {
+
+            gameController.gameOver();
+
+
+
         }
     }
 
@@ -128,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(movement * force * Time.deltaTime);
+        transform.Translate(movement * (force + powerUpSpeedPlus) * Time.deltaTime);
 
 
     }
@@ -161,10 +189,28 @@ public class PlayerController : MonoBehaviour
     void GetCoin(GameObject _coin)
     {
         coinAmout++;
-        coinUI.text = coinAmout.ToString();
+        coinUI.text = coinAmout.ToString() + " / " + coinMaxAmount;
         _coin.GetComponent<Coin>().MakeSound();
 
 
     }
 
+    void GetPowerUp(GameObject _powerup)
+    {
+        //coinUI.text = coinAmout.ToString() + " / " + coinMaxAmount;
+        _powerup.GetComponent<PowerUp>().MakeSound();
+
+        if (powerUpped == true)
+        {
+            if (timerPowerUp <= 0)
+            {
+                powerUpSpeedPlus = 0;
+                powerUpped = false;
+            }
+            else
+            {
+                powerUpSpeedPlus += 3;
+            }
+        }
+    }
 }

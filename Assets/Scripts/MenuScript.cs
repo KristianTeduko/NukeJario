@@ -39,7 +39,7 @@ public class MenuScript : MonoBehaviour
     {
 
 
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("SampleScene");
 
 
     }
